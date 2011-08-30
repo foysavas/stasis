@@ -34,6 +34,7 @@ $:.unshift File.dirname(__FILE__)
 require 'stasis/dev_mode'
 require 'stasis/plugin'
 require 'stasis/server'
+require 'stasis/webrick'
 
 require 'stasis/scope'
 require 'stasis/scope/action'
@@ -123,10 +124,10 @@ class Stasis
       if path.is_a?(::Regexp)
         array << path
       # If `root + path` exists...
-      elsif (path = File.expand_path(path, root)) && File.exists?(path)
+      elsif !path.nil? && (path = File.expand_path(path, root)) && File.exists?(path)
         array << path
       # If `path` exists...
-      elsif File.exists?(path)
+      elsif !path.nil? && File.exists?(path)
         array << path
       end
       array
